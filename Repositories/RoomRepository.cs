@@ -11,7 +11,7 @@ public interface IRoomRepository
     Task<bool> Delete(long RoomId);
     Task<Room> GetById(long RoomId);
     Task<List<Room>> GetList();
-    Task<List<RoomDTO>> GetAllForRoom(long RoomId);
+    Task<List<RoomServiceStaffDTO>> GetAllForRoom(long RoomId);
 
 }
 public class RoomRepository : BaseRepository, IRoomRepository
@@ -43,11 +43,11 @@ public class RoomRepository : BaseRepository, IRoomRepository
         }
     }
 
-    public async Task<List<RoomDTO>> GetAllForRoom(long RoomId)
+    public async Task<List<RoomServiceStaffDTO>> GetAllForRoom(long RoomId)
     {
-        var query = $@"SELECT * FROM rooms WHERE room_id = @RoomId";
+        var query = $@"SELECT * FROM roomservicestaff WHERE staff_id = @RoomId";
         using(var con = NewConnection)
-        return (await con.QueryAsync<RoomDTO>(query,new {RoomId})).AsList();
+        return (await con.QueryAsync<RoomServiceStaffDTO>(query,new {RoomId})).AsList();
     }
 
     // public Task<List<RoomDTO>> GetAllForRoom(long room_id)

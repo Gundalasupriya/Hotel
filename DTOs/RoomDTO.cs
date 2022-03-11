@@ -13,7 +13,7 @@ public record RoomDTO
     public long RoomNumber { get; set; }
     [JsonPropertyName("staff_id")]
     public long StaffId { get; set; }
-     public List<RoomDTO> RoomServiceStaff { get; internal set; }
+     public List<RoomServiceStaffDTO> RoomServiceStaff { get; internal set; }
 }
 public record RoomCreateDTO
 {
