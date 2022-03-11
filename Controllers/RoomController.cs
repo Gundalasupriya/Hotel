@@ -59,7 +59,7 @@ public class RoomController : ControllerBase
             dto.RoomServiceStaff = await _room.GetAllForRoom(room.RoomId);
 
 
-        return Ok(room.asDTO);
+        return Ok(dto);
     }
     [HttpPut("{room_id}")]
     public async Task<ActionResult> UpdateUser([FromRoute] long room_id,

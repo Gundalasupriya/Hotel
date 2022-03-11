@@ -11,7 +11,7 @@ public interface IRoomRepository
     Task<bool> Delete(long RoomId);
     Task<Room> GetById(long RoomId);
     Task<List<Room>> GetList();
-    Task<List<RoomDTO>> GetAllForRoom(long room_id);
+    Task<List<RoomDTO>> GetAllForRoom(long RoomId);
 
 }
 public class RoomRepository : BaseRepository, IRoomRepository
@@ -43,10 +43,17 @@ public class RoomRepository : BaseRepository, IRoomRepository
         }
     }
 
-    public Task<List<RoomDTO>> GetAllForRoom(long room_id)
+    public async Task<List<RoomDTO>> GetAllForRoom(long RoomId)
     {
-        throw new NotImplementedException();
+        var query = $@"SELECT * FROM rooms WHERE room_id = @RoomId";
+        using(var con = NewConnection)
+        return (await con.QueryAsync<RoomDTO>(query,new {RoomId})).AsList();
     }
+
+    // public Task<List<RoomDTO>> GetAllForRoom(long room_id)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
     public async Task<Room> GetById(long RoomId)
 

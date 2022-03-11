@@ -43,7 +43,7 @@ public class GuestController : ControllerBase
 
         var dto = guest.asDTO;
         dto.StaySchedule = await _stayschedule.GetAllForGuest(guest.GuestId);
-        return Ok(guest.asDTO);
+        return Ok(dto);
     }
 
     [HttpPost]

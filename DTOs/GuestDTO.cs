@@ -12,6 +12,7 @@ public record GuestDTO
     [JsonPropertyName("guest_details")]
     public String GuestDetails { get; set; }
 
+    [JsonPropertyName("stay_schedule")]
     public List<StayScheduleDTO> StaySchedule { get; internal set; }
 
 }

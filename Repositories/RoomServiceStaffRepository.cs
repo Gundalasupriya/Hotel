@@ -1,4 +1,5 @@
 using Dapper;
+using hotel.DTOs;
 using hotel.Models;
 
 namespace hotel.Repositories;
@@ -10,6 +11,9 @@ public interface IRoomServiceStaffRepository
     Task<bool> Delete(long RoomServiceStaffId);
     Task<RoomServiceStaff> GetById(long RoomServiceStaffId);
     Task<List<RoomServiceStaff>> GetList();
+    Task<List<RoomServiceStaff>> GetAllForRooms(long RoomId);
+
+
 
 }
 public class RoomServiceStaffRepository : BaseRepository, IRoomServiceStaffRepository
@@ -41,6 +45,13 @@ public class RoomServiceStaffRepository : BaseRepository, IRoomServiceStaffRepos
             return result > 0;
 
         }
+    }
+
+    public async Task<List<RoomServiceStaff>> GetAllForRooms(long RoomId)
+    {
+        var query = $@"SELECT * FROM roomservicestaff WHERE room_id = RoomId";
+        using (var con = NewConnection)
+        return (await con.QueryAsync<RoomServiceStaff>(query,new{RoomId})).AsList();
     }
 
     public async Task<RoomServiceStaff> GetById(long StaffId)
