@@ -27,13 +27,12 @@ public class StayScheduleRepository : BaseRepository, IStayScheduleRepository
         {
             var res = await con.QuerySingleOrDefaultAsync<StaySchedule>(query, Item);
             return res;
-
         }
     }
 
     public async Task<bool> Delete(long StayScheduleId)
     {
-        var query = $@"DELETE FROM stayschedule WHERE stay_schedule_id=@StayScheduleId";
+        var query = $@"DELETE FROM stayschedule WHERE stay_schedule_id = @StayScheduleId";
 
         using (var con = NewConnection)
         {
@@ -43,19 +42,12 @@ public class StayScheduleRepository : BaseRepository, IStayScheduleRepository
         }
     }
 
-
-
-
-
-
     // public Task<bool> Delete(long StayScheduleId)
     // {
     //     throw new NotImplementedException();
     // }
 
     public async Task<StaySchedule> GetById(long StayScheduleId)
-
-
     {
         var query = $@"SELECT * FROM stayschedule WHERE stay_schedule_id = @StayScheduleId";
         using (var con = NewConnection)

@@ -73,7 +73,7 @@ public class RoomServiceStaffRepository : BaseRepository, IRoomServiceStaffRepos
 
     public async Task<bool> Update(RoomServiceStaff Item)
     {
-        var query = $@"UPDATE roomservicestaff SET staff_name=@StaffName,staff_address=@StaffAddress,staff_id=@StaffId WHERE staff_id=@StaffId";
+        var query = $@"UPDATE roomservicestaff SET staff_name=@StaffName, staff_address=@StaffAddress, staff_id=@StaffId WHERE staff_id=@StaffId";
         using (var con = NewConnection)
         {
             var rowCount = await con.ExecuteAsync(query, Item);

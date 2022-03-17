@@ -22,7 +22,7 @@ public class RoomRepository : BaseRepository, IRoomRepository
 
     public async Task<Room> Create(Room Item)
     {
-        var query = $@"Insert Into rooms(room_id,room_type,room_no,staff_id)VALUES(@RoomId,@RoomType,@RoomNumber,@StaffId) RETURNING *";
+        var query = $@"INSERT INTO  rooms(room_id,room_type,room_no,staff_id)VALUES(@RoomId,@RoomType,@RoomNumber,@StaffId) RETURNING *";
         using (var con = NewConnection)
         {
             var res = await con.QuerySingleOrDefaultAsync<Room>(query, Item);

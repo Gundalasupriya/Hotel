@@ -13,7 +13,7 @@ public class RoomController : ControllerBase
 {
     private readonly ILogger<RoomController> _logger;
     private readonly IRoomRepository _room;
-     private readonly IRoomServiceStaffRepository _roomservicestaff;
+    private readonly IRoomServiceStaffRepository _roomservicestaff;
 
 
     public RoomController(ILogger<RoomController> logger, IRoomRepository room, IRoomServiceStaffRepository roomservicestaff)
@@ -36,8 +36,8 @@ public class RoomController : ControllerBase
     public async Task<ActionResult<RoomDTO>> CreateRoom([FromBody] RoomCreateDTO Data)
     {
         var roomservicestaff = await _roomservicestaff.GetById(Data.StaffId);
-        if(roomservicestaff is null)
-        return NotFound("No user found with given staff id");
+        if (roomservicestaff is null)
+            return NotFound("No user found with given staff id");
         var toCreateRoom = new Room
         {
             RoomId = Data.RoomId,
@@ -51,20 +51,18 @@ public class RoomController : ControllerBase
     [HttpGet("{room_id}")]
     public async Task<ActionResult<RoomDTO>> GetRoomById([FromRoute] long room_id)
     {
-        var room  = await _room.GetById(room_id);
+        var room = await _room.GetById(room_id);
 
         if (room is null)
             return NotFound("No user found with given room id");
-            var dto = room.asDTO;
-            dto.RoomServiceStaff = await _room.GetAllForRoom(room.RoomId);
-
-
+        var dto = room.asDTO;
+        dto.RoomServiceStaff = await _room.GetAllForRoom(room.RoomId);
         return Ok(dto);
-    }
-    [HttpPut("{room_id}")]
-    public async Task<ActionResult> UpdateUser([FromRoute] long room_id,
+     }
+     [HttpPut("{room_id}")]
+      public async Task<ActionResult> UpdateUser([FromRoute] long room_id,
        [FromBody] RoomUpdateDTO Data)
-    {
+     {
         var existing = await _room.GetById(room_id);
         if (existing is null)
             return NotFound("No user found with given room id");
